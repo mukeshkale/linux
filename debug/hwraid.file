@@ -1,0 +1,4 @@
+###To check if any drive failed ###
+MegaCli64 -CfgDsply -aALL | egrep -i "(slot|Firmware state)" | fgrep -i -B1 Failed
+
+
