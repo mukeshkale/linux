@@ -1,6 +1,0 @@
-###############Memory Errors##################
-dmidecode -t 17  
-
-dmesg | grep -n kernel
-
-

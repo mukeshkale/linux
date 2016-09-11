@@ -1,0 +1,8 @@
+Original : 
+System Information
+	Manufacturer: Hewlett-Packard
+	Product Name: HP EliteDesk 705 G1 MT
+After command : 
+sudo dmidecode --type system|egrep "Product Name"|cut -d: -f2
+HP EliteDesk 705 G1 MT
+
