@@ -34,7 +34,7 @@ MegaCli -AdpBbuCmd -aALL
 
 #######Rebuild drive#######
 
-###Check Rebuild status
+###Check Rebuild status E- Enclosure id / S - Slot id
 MegaCli -PDRbld -ShowProg -PhysDrv [E:S] -aN
 
 
@@ -72,4 +72,4 @@ megacli -PDlist -aall | grep -e '^Enclosure Device ID:' -e '^Slot Number:'
 
 ###Source : https://wiki.hetzner.de/index.php/LSI_RAID_Controller/en
 ###Source : http://tools.rapidsoft.de/perc/perc-cheat-sheet.html
-
+###Source : https://www.cheatography.com/richardjh/cheat-sheets/lsi-logic-megaraid/
