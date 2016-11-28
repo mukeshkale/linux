@@ -1,0 +1,199 @@
+### Logging
+ipmitool sel info 
+ipmitool sel list 
+ipmitool sel elist # extended list (see manpage) 
+ipmitool sel clear
+
+
+###Check the firmware version
+ipmitool mc info
+
+### Reset the management controller
+
+ipmitool mc reset [ warm | cold ]
+
+### Show field-replaceable-unit details
+ipmitool fru print
+
+
+###Show sensor output
+ipmitool sdr list 
+ipmitool sdr type list 
+ipmitool sdr type Temperature 
+ipmitool sdr type Fan 
+ipmitool sdr type ‘Power Supply’
+
+#### Chassis commands
+##ipmitool chassis status ipmitool chassis identify [] # turn on front panel identify light (default 15s) 
+ipmitool [chassis] power soft # initiate a soft-shutdown via acpi 
+ipmitool [chassis] power cycle # issue a hard power off, wait 1s, power on 
+ipmitool [chassis] power off # issue a hard power off 
+ipmitool [chassis] power on # issue a hard power on 
+ipmitool [chassis] power reset # issue a hard reset
+
+
+### Modify boot device for next reboot
+ipmitool chassis bootdev pxe 
+ipmitool chassis bootdev cdrom 
+ipmitool chassis bootdev bios
+
+
+###For remote access, you need to setup user and network settings, either at boot time on the iLO or on the DRAC card itself, or from the OS via IPMI tool:
+##Display/reset password for default root user (userid ’2′)
+
+Display/reset password for default root user (userid ’2′)
+
+ipmitool user list 1 
+ipmitool user set password 2
+
+###Display/configure lan settings
+ipmitool lan print 1
+ipmitool lan set 1 ipsrc [ static | dhcp ] 
+ipmitool lan set 1 ipaddr {YOUR DESIRED IP}
+ipmitool lan set 1 netmask {YOUR NETMASK}
+ipmitool lan set 1 defgw ipaddr 10.0.1.1
+
+###After configuring the lan settings you should be able to connect remotely using the ‘lan’ interface of IPMItool.
+###The following is an example:
+
+ipmitool -I lan -U root -H {YOUR DESIRED IP} chassis status
+
+### Hanging BMC
+
+ipmitool bmc reset cold
+
+####Change system state
+
+ipmitool -H <ip> -U <user> chassis power <status|on|off|cycle|reset>
+
+###Get debug info
+
+ipmitool lan print
+ipmitool -H <ip> -U <user> shell # get ipmitool shell, type 'help'
+ipmitool -H <ip> -U <user> sel list # Show system event log
+ipmitool -H <ip> -U <user> sdr # List sensor data
+
+
+### Get SOL console
+modprobe lanplus # If not yet loaded
+ipmitool -H <IP> -U <user> -I lanplus sol activate
+
+
+
+
+
+### List SEL log:
+ipmitool sel elist
+
+ipmitool sel list
+
+ipmitool sel clear
+
+### Check BMC Firmware Revision:
+
+ipmitool -I open bmc info
+
+ipmitool lan print
+
+### Reset BMC/DRAC to default:
+ipmitool mc reset cold
+
+cat /proc/ipmi/0/si_stats
+
+lsmod |grep -i ipmi
+
+bmc nic_mode get
+service ipmievd status
+
+/etc/init.d/ipmi status
+
+####To reset the warning indicator on the chassis  
+ipmitool mc clear warn
+
+###Check SEL log:
+ipmitool sel
+
+
+
+### Configure DRAC from ipmitool
+
+### Set BMC/DRAC static IP
+ipmitool lan set 1 ipsrc static
+
+
+###Set BMC/DRAC IP Address
+ipmitool lan set 1 ipaddr <ip add of bmc>
+
+
+###Set BMC/DRAC Subnet Mask
+ipmitool lan set 1 netmask <netmask addr>
+
+
+### Set BMC/DRAC Default Gateway
+ipmitool lan set 1 defgw ipaddr <ip add>
+
+### Change the NIC settings to dedicated
+ipmitool raw 0x30 0x24 2
+
+
+### Change the NIC settings to shared
+ipmitool raw 0x30 0x24 0
+
+### Check the NIC settings
+ipmitool raw 0x30 0x25
+
+[Output of 00 means shared and 02 means dedicated]
+
+
+
+###More commands
+ipmitool sdr -v
+ipmitool sensor
+
+
+ipmitool sdr type Battery
+--------
+Battery low      | 0Ah | ok  | 40.1 | Low
+--------
+ ipmitool sdr -v|grep 0xca
+----
+Sensor ID              : HDD 4 Status (0xca)
+---
+ ipmitool sdr -v|grep 0x0a
+
+ 
+
+ ipmitool sel get 0x0a
+----
+SEL Record ID          : 000a
+ Record Type           : 02
+ Timestamp             : 11/19/2016 17:10:53
+ Generator ID          : 0020
+ EvM Revision          : 04
+ Sensor Type           : Drive Slot
+ Sensor Number         : cf
+ Event Type            : Sensor-specific Discrete
+ Event Direction       : Assertion Event
+ Event Data (RAW)      : 00ffff
+ Event Interpretation  : Missing
+ Description           : Drive Present
+
+Sensor ID              : HDD 9 Status (0xcf)
+ Entity ID             : 144.104
+ Sensor Type (Discrete): Drive Slot / Bay
+ States Asserted       : Drive Slot
+                         [Drive Present]
+----
+
+ ipmitool sdr elist full
+----
+12V Standby      | 05h | ok  |  7.1 | 12.29 Volts
+5V Standby       | 07h | ok  |  7.1 | 5.00 Volts
+5V               | 06h | ok  |  7.1 | 4.95 Volts
+3.3V Standby     | 09h | ok  |  7.1 | 3.33 Volts
+3.3V             | 08h | ok  |  7.1 | 3.33 Volts
+----
+ipmitool sdr elist all
+
+
+

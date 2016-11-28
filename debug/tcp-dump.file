@@ -1,0 +1,1 @@
+timeout 10 tcpdump -s 0  -A udp port 53 2>/dev/null | grep --line-buffered " A?" > /tmp/test;cut -d"?" -f2 < /tmp/test | cut -d" " -f2 | sort | uniq -c | sort -n

@@ -5,3 +5,27 @@ dmidecode -t 17
 ##########
 dmesg | grep -n kernel
 
+----------------------------------------------------------------
+$ grep "[0-9]" /sys/devices/system/edac/mc/mc*/csrow*/ch*_ce_count
+/sys/devices/system/edac/mc/mc0/csrow0/ch0_ce_count:2
+/sys/devices/system/edac/mc/mc0/csrow1/ch0_ce_count:0
+/sys/devices/system/edac/mc/mc0/csrow2/ch0_ce_count:0
+/sys/devices/system/edac/mc/mc0/csrow3/ch0_ce_count:0
+/sys/devices/system/edac/mc/mc1/csrow0/ch0_ce_count:0
+/sys/devices/system/edac/mc/mc1/csrow1/ch0_ce_count:0
+/sys/devices/system/edac/mc/mc1/csrow2/ch0_ce_count:0
+/sys/devices/system/edac/mc/mc1/csrow3/ch0_ce_count:0
+----------------------------------------------------------------
+
+kernel: : sbridge: HANDLING MCE MEMORY ERROR
+kernel: : CPU 0: Machine Check Exception: 0 Bank 12: 8c000042000800c3
+kernel: : TSC 0 ADDR 3ca1c3000 MISC 90000040004048c PROCESSOR 0:306e4 TIME 1476457190 SOCKET 0 APIC 0
+kernel: : EDAC MC0: CE row 0, channel 0, label "CPU_SrcID#0_Ha#0_Channel#0_DIMM": 1 Unknown error(s): memory scrubbing on FATAL area : cpu=0 Err=0008:00c3 (ch=3), addr = 0x3ca1c3000 => socket=0, ha=0, Channel=0(mask=1), rank=0
+kernel: :
+kernel: : sbridge: HANDLING MCE MEMORY ERROR
+kernel: : CPU 0: Machine Check Exception: 0 Bank 12: 8c000042000800c3
+kernel: : TSC 0 ADDR 3ca1c3000 MISC 90000040004048c PROCESSOR 0:306e4 TIME 1477671593 SOCKET 0 APIC 0
+kernel: : EDAC MC0: CE row 0, channel 0, label "CPU_SrcID#0_Ha#0_Channel#0_DIMM": 1 Unknown error(s): memory scrubbing on FATAL area : cpu=0 Err=0008:00c3 (ch=3), addr = 0x3ca1c3000 => socket=0, ha=0, Channel=0(mask=1), rank=0
+-----------------------------------------------------------------
+
+cat /var/log/messages | egrep -B 3 -A 3 EDAC | tail -6

@@ -1,0 +1,57 @@
+#####
+for i in eth0 eth1 eth2 eth3; do echo $i; sudo lldptool -t -n -i $i | egrep -A1 System\ Name\|Port\ ID\ TLV; done;
+eth0
+Port ID TLV
+	Ifname: Etherinternal31
+--
+System Name TLV
+	14-02-01-rs1.DC.domain.internal
+eth1
+Port ID TLV
+	Ifname: Etherinternal31
+--
+System Name TLV
+	14-02-01-rs2.DC.domain.internal
+eth2
+Port ID TLV
+	Ifname: Etherinternal32
+--
+System Name TLV
+	14-02-01-rs1.DC.domain.internal
+eth3
+Port ID TLV
+	Ifname: Etherinternal32
+--
+System Name TLV
+	14-02-01-rs2.DC.domain.internal
+ 
+#################################################
+
+
+
+# for i in eth0 eth1 eth2 eth3; do echo $i; sudo lldptool -t -n -i $i | egrep -A1 System\ Name\|Port\ ID\ TLV; done;
+eth0
+Port ID TLV
+	Ifname: Etherinternal29
+--
+System Name TLV
+	14-02-01-rs1.DC.domain.internal
+eth1
+Port ID TLV
+	Ifname: Etherinternal29
+--
+System Name TLV
+	14-02-01-rs2.DC.domain.internal
+eth2
+Port ID TLV
+	Ifname: Etherinternal30
+--
+System Name TLV
+	14-02-01-rs1.DC.domain.internal
+eth3
+Port ID TLV
+	Ifname: Etherinternal30
+--
+System Name TLV
+	14-02-01-rs2.DC.domain.internal
+

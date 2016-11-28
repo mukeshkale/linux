@@ -32,10 +32,18 @@ MegaCli -PDInfo -PhysDrv [E:S] -aALL
 ###Battery backup information
 MegaCli -AdpBbuCmd -aALL
 
+MegaCli64 -AdpBbuCmd -GetBbuStatus -aALL
+
+##Re-read battry status
+MegaCli64 -AdpBbuCmd -BbuLearn -a0
+
+
 #######Rebuild drive#######
 
 ###Check Rebuild status E- Enclosure id / S - Slot id
 MegaCli -PDRbld -ShowProg -PhysDrv [E:S] -aN
+
+MegaCli64 -pdrbld -showprog -physdrv\[32:0\] -aALL
 
 
 ################Manipulate output ###################
@@ -69,7 +77,13 @@ megacli -PDlist -aall | grep -e '^Enclosure Device ID:' -e '^Slot Number:'
 
 
 
+#####Replacing drive follow link
+## http://www.advancedclustering.com/act-kb/replacing-a-disk-with-megacli/
+
+
 
 ###Source : https://wiki.hetzner.de/index.php/LSI_RAID_Controller/en
 ###Source : http://tools.rapidsoft.de/perc/perc-cheat-sheet.html
 ###Source : https://www.cheatography.com/richardjh/cheat-sheets/lsi-logic-megaraid/
+
+testctime
