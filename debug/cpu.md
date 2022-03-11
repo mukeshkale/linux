@@ -1,11 +1,11 @@
-### Check No of CPU(s)/processors you system has:
-grep -c ^processor /proc/cpuinfo  
+##### Check No of CPU(s)/processors you system has:
+`` grep -c ^processor /proc/cpuinfo  
 
 !---------------!		
 !	12	!
 !---------------!
-
-### Chek CPU Multi-threading/Hyper-threading capability/support if you see below: 
+``
+##### Chek CPU Multi-threading/Hyper-threading capability/support if you see below: 
 dmidecode -t processor | grep HTT
 
 !-------------------------------!
