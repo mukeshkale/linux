@@ -1,5 +1,5 @@
 ##### Check No of CPU(s)/processors you system has:
-``grep -c ^processor /proc/cpuinfo  
+`grep -c ^processor /proc/cpuinfo`
 
 !---------------!		
 !	12	!
